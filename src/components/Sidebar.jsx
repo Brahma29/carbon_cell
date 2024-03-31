@@ -46,6 +46,7 @@ export const Sidebar = () => {
               title={item.title}
               key={item.title}
               isCollapsed={isCollapsed}
+              disabled={item.disabled}
             />
           ))}
         </ul>
@@ -58,6 +59,7 @@ export const Sidebar = () => {
                 icon={item.icon}
                 link={item.link}
                 isCollapsed={isCollapsed}
+                disabled={item.disabled}
               />
             ))}
           </ul>
@@ -84,10 +86,14 @@ export const Sidebar = () => {
   );
 };
 
-const NavLinkItem = ({ title, icon, link, isCollapsed }) => (
+const NavLinkItem = ({ title, icon, link, isCollapsed, disabled }) => (
   <li>
     <NavLink
       to={link}
+      style={{
+        pointerEvents: disabled ? "none" : "all",
+        cursor: disabled ? "not-allowed" : "pointer",
+      }}
       className={({ isActive }) =>
         isActive
           ? `${commonNavLinkClasses} text-primary`
@@ -105,11 +111,13 @@ const sidebarMenuData = [
     title: "Population Graph",
     link: "/",
     icon: <Icons.PopulationGraph className="w-10" />,
+    disabled: false,
   },
   {
     title: "Cryptocurrency",
     link: "/cryptocurrency",
     icon: <Icons.Cryptocurrency className="w-10" />,
+    disabled: false,
   },
 ];
 
@@ -118,15 +126,18 @@ const bottomMenuData = [
     title: "Notifications",
     link: "/notifications",
     icon: <Icons.Notification className="w-10" />,
+    disabled: true,
   },
   {
     title: "Support",
     link: "/support",
     icon: <Icons.Support className="w-10" />,
+    disabled: true,
   },
   {
     title: "Settings",
     link: "/settings",
     icon: <Icons.Cog className="w-10" />,
+    disabled: true,
   },
 ];
